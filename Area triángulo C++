@@ -12,7 +12,7 @@ int main()
 	cout << "Lado c: " << endl;
 	cin >> c;
 	s = (a + b + c)/2;
-	cout << sqrt(s*(s-a)*(s-b)*(s-c)) << endl;
+	cout << "El area del triangulo es: " << sqrt(s*(s-a)*(s-b)*(s-c)) << endl;
 	system("PAUSE");
 	return 0;
 }
