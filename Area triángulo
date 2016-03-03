@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 int main()
 {
-	int base, altura;
-	cin >> base >> altura;
-	cout << (base*altura)/2 << endl;
+	float a, b, c, s;
+	cin >> a >> b >> c;
+	s = (a + b + c)/2;
+	cout << sqrt(s*(s-a)*(s-b)*(s-c)) << endl;
 	system("PAUSE");
 	return 0;
 }
