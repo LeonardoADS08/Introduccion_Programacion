@@ -1,0 +1,12 @@
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+int main()
+{
+	int base, altura;
+	cin >> base >> altura;
+	cout << (base*altura)/2 << endl;
+	system("PAUSE");
+	return 0;
+}
+
