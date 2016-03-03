@@ -5,9 +5,15 @@ using namespace std;
 int main()
 {
 	float a, b, c, s;
-	cin >> a >> b >> c;
+	cout << "Lado a: " << endl;
+	cin >> a;
+	cout << "Lado b: " << endl;
+	cin >> b;
+	cout << "Lado c: " << endl;
+	cin >> c;
 	s = (a + b + c)/2;
 	cout << sqrt(s*(s-a)*(s-b)*(s-c)) << endl;
 	system("PAUSE");
 	return 0;
 }
+
