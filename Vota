@@ -4,6 +4,7 @@ using namespace std;
 int main()
 {
 	int edad;
+	cout << "Ingrese la edad: " << endl;
 	cin >> edad;
 	if (edad > 17) cout << "Vota" << endl;
 	else cout << "No vota" << endl;
