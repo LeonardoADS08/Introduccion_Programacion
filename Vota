@@ -1,0 +1,13 @@
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+int main()
+{
+	int edad;
+	cin >> edad;
+	if (edad > 17) cout << "Vota" << endl;
+	else cout << "No vota" << endl;
+	system("PAUSE");
+	return 0;
+}
+
