@@ -1,0 +1,59 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+using namespace std;
+const int afp = 0.1271;
+const int iva = 0.13;
+void salario();
+int suma();
+int main()
+{
+	int op;
+	do
+	{
+		cout << "\t\tMenu " << endl;
+		cout << "\t1. Salario" << endl;
+		cout << "\t2. Suma" << endl;		
+		cout << "\t0. Terminar" << endl << endl;
+		cin >> op;
+		switch (op)
+		{
+		case 1: salario(); break;
+		case 2: cout << suma() << endl; break;
+		case 0: cout << "El programa finalizo " << endl; break;
+		default: cout << "Opcion invalida" << endl; break;
+		}
+	} while (op != 0);
+	getch();
+	return 0;
+}
+
+
+void salario()
+{
+	float salarioBruto, salarioNeto;
+	int n;
+	cout << "\t Calculo de salarios" << endl;
+	cout << "Ingrese el numero de empleados: " << endl;
+	cin >> n;
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "Ingrese el salario bruto del empleado N." << i << ": ";
+		cin >> salarioBruto;
+		if (salarioBruto >= 7000) salarioNeto = salarioBruto - (iva + afp) * salarioBruto;
+		else salarioNeto = salarioBruto - afp * salarioBruto;
+		cout << "El salario neto del empleado es: " << salarioNeto << endl << endl;
+	}
+	return;
+}
+
+int suma()
+{
+	int a, b;
+	cout << "\t Suma" << endl;
+	cout << "Ingrese primer termino: " << endl;
+	cin >> a;
+	cout << "Ingrese segundo termino: " << endl;
+	cin >> b;
+	return a + b;
+}
