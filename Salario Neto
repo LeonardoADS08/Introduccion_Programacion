@@ -1,0 +1,24 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+using namespace std;
+const float afp = 0.1271;
+const float iva = 0.13;
+int main()
+{
+	float salarioBruto, salarioNeto;
+	int n;
+	cout << "Ingrese el numero de empleados: " << endl;
+	cin >> n;
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "Ingrese el salario bruto del empleado N." << i << ": ";
+		cin >> salarioBruto;
+		if (salarioBruto >= 7000) salarioNeto = salarioBruto - (iva + afp) * salarioBruto;
+		else salarioNeto = salarioBruto - afp * salarioBruto;
+		cout << "El salario neto del empleado es: " << salarioNeto << endl << endl;
+	}
+	getch();
+	return 0;
+}
+
