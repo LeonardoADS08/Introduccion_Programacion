@@ -24,10 +24,12 @@ int main()
 		cin >> ef;
 		nf = pr * 0.2 + ( (p1+p2+p3)/3 ) * 0.4 + ef * 0.4;
 		promedio += nf;
-		system("cls");
 		cout << "La nota final del alumno es: " << nf << endl;
+		cout << "Presione cualquier tecla para continuar..." << endl;
+		getch();
+		system("cls");
 		++cant;
-		cout << endl << "Ingrese id del estudiante" << endl;
+		cout << "Ingrese id del estudiante" << endl;
 		cout << "Ingrese -999 para finalizar" << endl;
 		cin >> id;
 	}
