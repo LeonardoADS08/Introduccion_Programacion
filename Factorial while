@@ -1,0 +1,26 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+unsigned long long fact(int n) { return (n == 0 || n == 1) ? 1 : fact(n-1) * n; }
+
+int main()
+{
+	int n, i = 1;
+	unsigned long long fact = 1;
+	do
+	{
+		cout << "Ingrese el numero a calcular factorial" << endl;
+		cin >> n;
+		if (n < 0) cout << "Numero invalido" << endl;
+	} while (n < 0);
+	while (i <= n) 
+	{
+		fact *= i;
+		++i;
+	}	
+	cout << "El factorial de " << n << " es: " << fact << endl;
+	getch();
+	return 0;
+}
