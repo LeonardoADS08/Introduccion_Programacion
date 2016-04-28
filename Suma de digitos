@@ -1,0 +1,19 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+int main()
+{
+	int n, res = 0;
+	cout << "Ingrese un numero natural" << endl;
+	cin >> n;
+	while (n)
+	{
+		res += n%10;
+		n /= 10;
+	}
+	cout << "La suma de sus digitos es: " << res << endl;
+	getch();
+	return 0;
+}
