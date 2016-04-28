@@ -1,0 +1,19 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+int main()
+{
+	int n, may = 0;
+	cout << "Ingrese un numero natural" << endl;
+	cin >> n;
+	while (n)
+	{
+		if (n%10 > may) may = n%10;
+		n /= 10;
+	}
+	cout << "El digito de mayor valor es: " << may << endl;
+	getch();
+	return 0;
+}
