@@ -1,0 +1,18 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+int main()
+{
+	int n;
+	do 
+	{
+		cout << "Ingrese un numero positivo" << endl;
+		cin >> n;
+	} while (n < 0);
+	if (n%2 == 0) cout << "Es par" << endl;
+	else cout << "Es impar" << endl;
+	getch();
+	return 0;
+}
