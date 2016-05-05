@@ -1,0 +1,21 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+using namespace std;
+bool esPar(int n);
+int main()
+{
+	int n;
+	cout << "Ingresar numero entero" << endl;
+	cin >> n;
+	if (esPar(n)) cout << "Es par" << endl;
+	else cout << "Es impar" << endl;
+	getch();
+
+	return 0;
+}
+
+bool esPar(int n)
+{
+	return n%2 == 0;
+}
