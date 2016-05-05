@@ -5,13 +5,17 @@ using namespace std;
 bool esPar(int n);
 int main()
 {
-	int n;
-	cout << "Ingresar numero entero" << endl;
+	int n, k;
+	cout << "Ingrese cantidad de  numeros a analizar" << endl;
 	cin >> n;
-	if (esPar(n)) cout << "Es par" << endl;
-	else cout << "Es impar" << endl;
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "Ingrese numero" << endl;
+		cin >> k;
+		if (esPar(k)) cout << "Es par" << endl;
+		else cout << "Es impar" << endl;
+	}
 	getch();
-
 	return 0;
 }
 
