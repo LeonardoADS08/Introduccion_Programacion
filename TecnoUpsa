@@ -1,0 +1,365 @@
+/// BIBLIOTECAS
+//include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+// Bibliotecas para hejtruqturah
+#include <queue>
+#include <vector>
+#include <string>
+
+// Funciones para ordenar vectores y system()
+#include <algorithm>
+
+// Funciones para salida y entrada de datos
+#include <cstdio>
+#include <cstring>
+
+// Para validar datos
+#include <limits>
+using namespace std;
+const int inf = (1 << 30);
+// Constante con valor infinito equivalente a 2 a la 31
+
+/// ESTRUCTURAS DE DATOS
+vector < vector < pair <int,int> > > g;
+/// Lista que contiene los nodos y sus vecinos con sus pesos
+vector <int> dist;
+/// Guarda las distancias minimas para llegar a cada nodo
+vector < vector< pair <int, bool> > > estados;
+/// Contiene los cajeros que tiene cada nodo y si estan activos o inactivos
+vector< string > nombreCalle;
+/// Guarda el nombre de las calles
+
+
+/// FUNCIONES
+void dijkstra(int b);
+/// Busca el camino minimo partiendo de un nodo b
+void buscarBanco(int banco, int nodo);
+/// Busca el cajero mas cercano del banco que quisieramos de un banco b iniciando en un nodo b
+void ingresarDatos();
+/// Ingresa los datos de el grafo, nombres y bancos
+void depurar();
+/// Muestra todos los datos del grafo, nombres y bancos
+void reiniciarDistancias();
+/// Reinicia las distancias de los nodos, para volver a hacer un dijkstra
+void SwapIOB(FILE *A, FILE *B);
+/// Cambia el metodo de entrada de teclado a archivo o viceversa
+
+int main()
+{
+
+    //system("COLOR F1");
+    ingresarDatos();
+    int op, banco, ub, f;
+    string nombre;
+    /// Ingresar nombre de usuario
+    do
+    {
+        cout <<"\t\t\t''Ingrese su nombre''"<< endl;
+        cout << "-->";
+        getline(cin, nombre);
+        system("CLS");
+    }
+    while (nombre.size() == 0);
+
+    /// Menu para escoger banco
+    do
+    {
+        cout << "\t\t\t''BANCOS DISPONIBLES'' " << endl;
+        cout << endl;
+        cout << "\t\t****************************"<< endl;
+        cout << "[1.] Banco union" << endl;
+        cout << "[2.] Banco Nacional de Bolivia" << endl;
+        cout << "[3.] Banco de Credito del Peru (BCP)" << endl;
+        cout << "\t\t****************************"<< endl;
+        cout << "Seleccione un banco ->";
+        cin >> banco;
+        if (banco != 1 && banco != 2 && banco != 3)
+        {
+            cout << "*Codigo incorrecto, ingrese uno de los listados*" << endl;
+            /// Validamos si la entrada es correcta, (Solo si el numero es un entero soportado por int)
+            /// Caso contrario ignora lo ingresado
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            }
+            getch();
+        }
+        system("CLS");
+    }
+    while (banco != 1 && banco != 2 && banco != 3);
+
+    /// Menu principal
+    do
+    {
+        cout << "\t\t\t>>>BIENVENIDO<<< " <<endl<<"\t\t\t*" <<nombre<<"*" << endl;
+        cout << "Su banco de eleccion es: "<< endl;
+        switch (banco)
+        {
+        case 1:
+            cout << "\t\t\tBanco union" << endl;
+            break;
+        case 2:
+            cout << "\t\t\tBanco Nacional de Bolivia" << endl;
+            break;
+        case 3:
+            cout << "\t\t\tBanco de Credito del Peru" << endl;
+            break;
+        }
+        cout << "\t\t****************************"<< endl;
+        cout << "[1.] Buscar cajero" << endl;
+        cout << "[2.] Cambiar banco" << endl;
+        cout << "[3.] Finalizar" << endl;
+        cout << "\t\t****************************"<< endl;
+        cout << "Seleccione una opcion ->";
+        cin >> op;
+        /// Se valida el dato
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            system("CLS");
+            continue;
+        }
+        system("CLS");
+        switch (op)
+        {
+        case 1:
+            cout << "\t\t>>Seleccione hubiacion en rango de(1 - 20)<<" << endl;
+            cout << "-->";
+            do
+            {
+                cin >> ub;
+                /// Se valida el dato
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                    system("CLS");
+                }
+                if (ub <= 0 || ub > 20) cout << "*Ingrese una ubicacion valida (1 - 20)*" << endl;
+            }
+            while (ub <= 0 || ub > 20);
+            buscarBanco(banco, ub);
+            break;
+        case 2:
+            do
+            {
+                cout << "Ingrese su banco: " << endl;
+                cout << "1. Banco union" << endl;
+                cout << "2. Banco Nacional de Bolivia" << endl;
+                cout << "3. Banco de Credito del Peru" << endl;
+                cin >> banco;
+                /// Se valida el dato
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                    system("CLS");
+                }
+                if (banco != 1 && banco != 2 && banco != 3)
+                {
+                    cout << "Codigo incorrecto, ingrese uno de los listados" << endl;
+                    getch();
+                }
+                system("CLS");
+            }
+            while (banco != 1 && banco != 2 && banco != 3);
+            break;
+        case 3:
+            	cout << "\n";
+                cout<<"\t#############################################################"<<endl;
+	            cout<<"\t#                    _                                      #"<<endl;
+	            cout<<"\t#                  -=\\`\\                                    #"<<endl;
+	            cout<<"\t#              |\\ ____\\_\\__                                 #"<<endl;
+	            cout<<"\t# **GRACIAS**-=\\c`\"\"\"\"\"\"\" \"`)                               #"<<endl;
+	            cout<<"\t#               `~~~~~/ /~~`\                                #"<<endl;
+	            cout<<"\t#                 -==/ /                                    #"<<endl;
+	            cout<<"\t#                   '-'                                     #"<<endl;
+	            cout<<"\t#                  _  _   >>ATM SANTA CRUZ<<                #"<<endl;
+	            cout<<"\t#                 ( `   )_                                  #"<<endl;
+                cout<<"\t#                (    )    `)                               #"<<endl;
+	            cout<<"\t#              (_   (_ .  _) _)                             #"<<endl;
+	            cout<<"\t#                                             _             #"<<endl;
+                cout<<"\t#                                            (  )           #"<<endl;
+	            cout<<"\t#             _ .                         ( `  ) . )        #"<<endl;
+	            cout<<"\t#           (  _ )_                      (_, _(  ,_)_)      #"<<endl;
+	            cout<<"\t#         (_  _(_ ,)                                        #"<<endl;
+	            cout<<"\t#############################################################"<<endl;
+	            /// Made by Ojcar
+            break;
+        case -999:
+            depurar();
+            break;
+        default:
+            cout << "Opcion invalida" << endl;
+            break;
+        }
+        getch();
+        system("CLS");
+    }
+    while( op != 3);
+    getch();
+    return 0;
+}
+
+void dijkstra(int b)
+{
+    priority_queue < pair <int,int> > q;
+    pair <int,int> s, v;
+    q.push(make_pair(0, b));
+    dist[b] = 0;
+    while(!q.empty())
+    {
+        s = q.top();
+        q.pop();
+        for(int i = 0; i < (int)g[s.second].size(); ++i)
+        {
+            v = g[s.second][i];
+            if((v.first * -1) + (s.first * -1) < dist[v.second])
+            {
+                dist[v.second] = (v.first * -1) + (s.first * -1);
+                q.push(make_pair(dist[v.second] * -1, v.second));
+            }
+        }
+    }
+}
+
+
+void buscarBanco(int banco, int ub)
+{
+    int menorDist = inf;
+    int ubicacionCajero;
+    /// Variables para guardar la menor distancia al cajero y su posicion
+    dijkstra(ub);
+    /// Se calculan las distancias a todos los nodos
+    for (int i = 1; i < estados.size(); ++i)
+    {
+        if (estados[i].size() > 0)
+        {
+            /// Preguntamos si en ese nodo hay por lo menos un cajero
+            for (int j = 0; j < estados[i].size(); ++j)
+            {
+                /// Si existe por lo menos un cajero, buscamos que sea del banco de preferencia
+                if (estados[i][j].first == banco && estados[i][j].second)
+                {
+                    /// Se guarda la distancia y ubicacion del cajero de menor distancia
+                    if (dist[i] < menorDist)
+                    {
+                        menorDist = dist[i];
+                        ubicacionCajero = i;
+                    }
+                }
+            }
+        }
+    }
+    /// Si el usuario se encuentra cerca de un cajero
+    if (ub == ubicacionCajero) cout << "Usted se encuentra cerca del cajero" << endl;
+    else
+    {
+        /// Se muestran los datos de la ubicacion y distancia del cajero
+        cout << "Usted se encuentra en " << nombreCalle[ub] << endl;
+        cout << "El cajero mas cercano esta a: " << menorDist << " kilometros." << endl;
+        cout << "El cajero se encuentra en " << nombreCalle[ubicacionCajero] << endl;
+        cout << endl << "INFO: Se encuentra en el nodo: " << ub << " el cajero mas cercano se encuentra en el nodo: " << ubicacionCajero << endl;
+    }
+    reiniciarDistancias();
+}
+
+void ingresarDatos()
+{
+    /// variable tipo FILE para guardar la direccion del archivo de datos
+    FILE *fp;
+    /// Se guarda la direccion del archivo en modo lectura (reading)
+    fp = fopen("map.data", "r");
+    /// Se hace el cambio de metodo de ingreso de datos de teclado a archivo
+    SwapIOB(stdin, fp);
+    string temp;
+    int v, e, s, f, w;
+    /// Se guardan el nombre de las calles hasta que en el archivo se encuentre un "FIN"
+    nombreCalle.push_back("");
+    while (true)
+    {
+        getline(cin, temp);
+        if (temp != "FIN") nombreCalle.push_back(temp);
+        else break;
+    }
+    /// Se guardan los nodos y pesos del grafo
+    cin >> v >> e;
+    /// Se asigna espacio a las estructuras de datos
+    g.assign(v + 5, vector < pair <int,int> >());
+    dist.assign(v + 5, inf);
+    estados.assign(v + 5, vector< pair <int,bool> >());
+    for(int i = 0; i < e; ++i)
+    {
+        cin >> s >> f >> w;
+        g[s].push_back(make_pair(-w, f));
+        g[f].push_back(make_pair(-w, s));
+    }
+    /// Se guardan la informacion de los cajeros
+    cin >> w;
+    for (int i = 0; i < w; ++i)
+    {
+        cin >> v >> e;
+        for (int j = 0; j < e; ++j)
+        {
+            cin >> s >> f;
+            estados[v].push_back(make_pair(s, f));
+        }
+    }
+    /// El teclado vuelve a ser el metodo de entrada
+    SwapIOB(stdin, fp);
+}
+
+void depurar()
+{
+    /// Para mostrar todos los datos que fueron ingresados
+    cout << "Revisando mapa" << endl;
+    for (int i = 1; i < g.size()-4; ++i)
+    {
+        cout << "Nodo: " << i << " - Sus vecinos son: ";
+        for (int j = 0; j < g[i].size(); ++j)
+        {
+            cout << g[i][j].second << " ";
+        }
+        cout << endl;
+    }
+    cout << endl <<  "Revisando nombre de calles" << endl;
+    for (int i = 1; i < nombreCalle.size(); ++i)
+    {
+        cout << "Calle " << i << " se llama: " << nombreCalle[i] << endl;
+    }
+    cout << endl << "Revisando estados de cajeros" << endl;
+    for (int i = 1; i < estados.size(); ++i)
+    {
+        if (estados[i].size() > 0)
+        {
+            cout << "Nodo: " << i << " con cajeros de: ";
+            for (int j = 0; j < estados[i].size(); ++j)
+            {
+                if (estados[i][j].first == 1) cout << "Banco union ";
+                else if (estados[i][j].first == 2) cout << "Banco Nacional de Bolivia ";
+                else cout << "Banco de credito del Peru ";
+            }
+            cout << endl;
+        }
+    }
+}
+
+void reiniciarDistancias()
+{
+    /// Sea asigna nuevamente valores infinitos a todas las distancias
+    int v = dist.size();
+    dist.assign(v, inf);
+}
+
+void SwapIOB(FILE *A, FILE *B)
+{
+    FILE temp;
+    memcpy(&temp, A, sizeof(struct _iobuf));
+    memcpy(A, B, sizeof(struct _iobuf));
+    memcpy(B, &temp, sizeof(struct _iobuf));
+}
+
