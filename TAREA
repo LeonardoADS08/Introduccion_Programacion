@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+int digitos(int n);
+int sumaDigitos(int n);
+int main()
+{
+	int a, op;
+	do
+	{
+		cout << "1. Cantidad de digitos de un numero" << endl;
+		cout << "2. Suma de los digitos de un numero" << endl;
+		cout << "3. Salir del programa" << endl;
+		cin >> op;
+		if (op == 1 || op == 2)
+		{
+			cout << "Ingrese un numero natural" << endl;
+			do
+			{
+				cin >> a;
+				if (a <= 0) cout << "El numero no puede ser menor o igual a cero)" << endl;
+			} while (a <= 0);
+		}
+		switch  (op)
+		{
+			case 1: 
+				cout << "La cantidad de digitos son: " << digitos(a) << endl; 
+				break;
+			case 2: 
+				cout << "La suma de los digitos es: " << sumaDigitos(a) << endl; 
+				break;
+			case 3: 
+				cout << "Saliendo del programa" << endl;
+				break;
+			default: cout << "Opcion invalida" << endl;
+		}
+		system("PAUSE");
+		system("CLS");
+	} while (op != 3);
+}
+
+int digitos(int n)
+{
+	int i = 0;
+	while ( n )
+	{
+		n /= 10;
+		++i;
+	}
+	return i;
+}
+
+int sumaDigitos(int n)
+{
+	int suma = 0;
+	while ( n )
+	{
+		suma += n % 10;
+		n /= 10;
+	}
+	return suma;
+}
+/*
+Se debe sumar los numeros en orden ascendente tomando como referencia el prime digito
+*/
