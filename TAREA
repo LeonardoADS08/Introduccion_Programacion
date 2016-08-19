@@ -1,22 +1,49 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 int digitos(int n);
 int sumaDigitos(int n);
+int invertir(int n);
+bool esPrimo(int n);
+int digitosPrimos(int n);
+int digitosNoPrimos(int n);
+int concatenar(int a, int b);
+bool ascendente(int n);
 int main()
 {
-	int a, op;
+	int a, b, op;
 	do
 	{
 		cout << "1. Cantidad de digitos de un numero" << endl;
 		cout << "2. Suma de los digitos de un numero" << endl;
-		cout << "3. Salir del programa" << endl;
+		cout << "3. Invertir numero" << endl,
+		cout << "4. Sumar digitos primos" << endl;
+		cout << "5. Quitar digitos los primos" << endl;
+		cout << "6. Concatenar dos numeros" << endl;
+		cout << "7. Verificar si se encuentran ordenados de manera ascendente" << endl;
+		cout << "8. Salir del programa" << endl;
 		cin >> op;
-		if (op == 1 || op == 2)
+		if (op == 1 || op == 2 || op == 3 || op == 4 || op == 5 || op == 7)
 		{
 			cout << "Ingrese un numero natural" << endl;
 			do
 			{
 				cin >> a;
+				if (a <= 0) cout << "El numero no puede ser menor o igual a cero)" << endl;
+			} while (a <= 0);
+		}
+		if (op == 6)
+		{
+			cout << "Ingrese el primer numero natural" << endl;
+			do
+			{
+				cin >> a;
+				if (a <= 0) cout << "El numero no puede ser menor o igual a cero)" << endl;
+			} while (a <= 0);
+			cout << "Ingrese el segundo numero natural" << endl;
+			do
+			{
+				cin >> b;
 				if (a <= 0) cout << "El numero no puede ser menor o igual a cero)" << endl;
 			} while (a <= 0);
 		}
@@ -28,14 +55,29 @@ int main()
 			case 2: 
 				cout << "La suma de los digitos es: " << sumaDigitos(a) << endl; 
 				break;
-			case 3: 
+			case 3:
+				cout << "El numero invertido es: " << invertir(a) << endl;
+				break;
+			case 4:
+				cout << "La suma de los digitos primos es: " << digitosPrimos(a) << endl;
+				break;
+			case 5:
+				cout << "El numeros sin los primos es: " << digitosNoPrimos(a) << endl;
+				break;
+			case 6:
+				cout << "La concatenacion de los dos numeros es: " << concatenar(a, b) << endl;
+			case 7:
+				if (ascendente(a)) cout << "Los numeros se encuentran el ordena ascendente" << endl;
+				else cout << "Los numeros no se encuentran ordenados de manera ascendente" << endl;
+				break;
+			case 8: 
 				cout << "Saliendo del programa" << endl;
 				break;
 			default: cout << "Opcion invalida" << endl;
 		}
 		system("PAUSE");
 		system("CLS");
-	} while (op != 3);
+	} while (op != 8);
 }
 
 int digitos(int n)
@@ -59,6 +101,73 @@ int sumaDigitos(int n)
 	}
 	return suma;
 }
-/*
-Se debe sumar los numeros en orden ascendente tomando como referencia el prime digito
-*/
+
+int invertir(int n)
+{
+	int inv = 0;
+	while (n)
+	{
+		inv *= 10;
+		inv += n%10;
+		n /= 10;
+	}
+	return inv;
+}
+
+bool esPrimo(int n)
+{
+	if (n == 1) return true;
+	for (int i = 2; i < n; ++i)
+	{
+		if (n%i == 0) return false;
+	}
+	return true;
+}
+
+int digitosPrimos(int n)
+{
+	int res = 0;
+	while (n)
+	{
+		if ( esPrimo(n%10) ) res += n%10;
+		n /= 10;
+	}
+	return res;
+}
+
+int digitosNoPrimos(int n)
+{
+	int res = 0;
+	while (n)
+	{
+		if (!esPrimo(n%10)) 
+		{
+			res *= 10;
+			res += n%10;
+		}
+		n /= 10;
+	}
+
+	return invertir(res);
+}
+
+int concatenar(int a, int b)
+{
+	return a * pow(float(10), digitos(b)) + b;
+}
+
+bool ascendente(int n)
+{
+	n = invertir(n);
+	int ref = n%10;
+	cout << n << endl;
+	while (n)
+	{
+		cout << ref << " " << n%10 << endl;
+		if (n%10 > ref) return false;
+		n /= 10;
+		ref = n%10;
+	}
+	return true;
+
+}
